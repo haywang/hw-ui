@@ -18,7 +18,9 @@ import Hello from '@/components/Hello.vue'
 
 const factory = (values = {}) => {
   return shallowMount(Hello, {
-    data: { ...values }
+    data() {
+      return { ...values }
+    }
   })
 }
 
@@ -41,7 +43,7 @@ describe('Hello.vue', () => {
   })
 
   it('does not render an error when username is 7 characters or more', () => {
-    // 这里没有设置成功
+    // 工厂函数中的data不是函数时，这里返回true，官网示例估计是旧的vue版本
     const wrapper = factory({ username: 'Lachlan' })
     expect(wrapper.find('.error').exists()).to.equal(false)
   })
